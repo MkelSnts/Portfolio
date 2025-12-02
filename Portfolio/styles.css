@@ -1,0 +1,404 @@
+/* Base styles with smooth transitions */
+* {
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: #1a1a1a;
+    overflow-x: hidden;
+}
+
+/* Dark mode styles */
+html.dark body {
+    background-color: #0f172a;
+    color: #f1f5f9;
+}
+
+html.dark nav ul li a {
+    color: #f1f5f9;
+}
+
+html.dark nav ul li a:hover {
+    color: #60a5fa;
+}
+
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark p {
+    color: #f1f5f9;
+}
+
+html.dark .text-gray-300 {
+    color: #64748b !important;
+}
+
+html.dark .bg-black {
+    background-color: #3b82f6 !important;
+}
+
+html.dark #darkModeToggle {
+    background-color: #f1f5f9;
+    color: #0f172a;
+}
+
+html.dark #darkModeToggle:hover {
+    background-color: #cbd5e1;
+}
+
+/* Theme toggle button animation */
+#darkModeToggle {
+    position: relative;
+    overflow: hidden;
+}
+
+#modeIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Icon rotation animation */
+#sunIcon, #moonIcon {
+    transition: transform 0.5s ease, opacity 0.3s ease;
+}
+
+#sunIcon.rotating {
+    animation: sunRotate 0.5s ease forwards;
+}
+
+#moonIcon.rotating {
+    animation: moonRotate 0.5s ease forwards;
+}
+
+@keyframes sunRotate {
+    0% {
+        transform: rotate(0deg) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: rotate(180deg) scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes moonRotate {
+    0% {
+        transform: rotate(0deg) scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Background transition overlay animation */
+.theme-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.theme-transition-overlay.active {
+    animation: overlayPulse 0.5s ease;
+}
+
+@keyframes overlayPulse {
+    0% {
+        opacity: 0;
+        background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0) 0%, rgba(255,255,255,0) 100%);
+    }
+    50% {
+        opacity: 1;
+        background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0) 70%);
+    }
+    100% {
+        opacity: 0;
+        background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0) 0%, rgba(255,255,255,0) 100%);
+    }
+}
+
+/* Page load slide-up animation */
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-slide-up {
+    opacity: 0;
+    animation: slideUp 0.8s ease-out forwards;
+}
+
+/* Animation delay classes for staggered effect */
+.animation-delay-200 {
+    animation-delay: 0.2s;
+}
+
+.animation-delay-400 {
+    animation-delay: 0.4s;
+}
+
+.animation-delay-600 {
+    animation-delay: 0.6s;
+}
+
+.animation-delay-800 {
+    animation-delay: 0.8s;
+}
+
+/* Page load slide-down animation for nav */
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-slide-down {
+    opacity: 0;
+    animation: slideDown 0.8s ease-out forwards;
+}
+
+/* Halftone background effect - scattered layers */
+.halftone-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: visible;
+}
+
+.halftone-layer {
+    position: absolute;
+    pointer-events: none;
+    background-image: 
+        radial-gradient(circle, #9ca3af 1.5px, transparent 1.5px),
+        radial-gradient(circle, #9ca3af 1px, transparent 1px),
+        radial-gradient(circle, #9ca3af 2px, transparent 2px);
+    background-size: 8px 8px, 12px 12px, 6px 6px;
+    background-position: 0 0, 4px 4px, 2px 2px;
+    opacity: 0.4;
+    transition: opacity 0.5s ease;
+}
+
+/* Layer 1 - Top right corner */
+.halftone-1 {
+    top: -10%;
+    right: -5%;
+    width: 60%;
+    height: 50%;
+    transform: rotate(-15deg);
+    animation: halftoneFloat1 12s ease-in-out infinite;
+    mask-image: radial-gradient(ellipse 80% 70% at 70% 30%, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 70% 30%, black 0%, transparent 70%);
+}
+
+/* Layer 2 - Bottom left */
+.halftone-2 {
+    bottom: -15%;
+    left: -10%;
+    width: 55%;
+    height: 60%;
+    transform: rotate(20deg);
+    animation: halftoneFloat2 15s ease-in-out infinite;
+    mask-image: radial-gradient(ellipse 70% 80% at 30% 70%, black 0%, transparent 65%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 80% at 30% 70%, black 0%, transparent 65%);
+}
+
+/* Layer 3 - Middle right */
+.halftone-3 {
+    top: 30%;
+    right: -15%;
+    width: 45%;
+    height: 45%;
+    transform: rotate(-5deg);
+    animation: halftoneFloat3 10s ease-in-out infinite;
+    mask-image: radial-gradient(ellipse 60% 60% at 60% 50%, black 0%, transparent 60%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 60% at 60% 50%, black 0%, transparent 60%);
+    opacity: 0.3;
+}
+
+/* Layer 4 - Top left scattered */
+.halftone-4 {
+    top: 5%;
+    left: -5%;
+    width: 40%;
+    height: 35%;
+    transform: rotate(10deg);
+    animation: halftoneFloat4 14s ease-in-out infinite;
+    mask-image: radial-gradient(ellipse 50% 60% at 30% 40%, black 0%, transparent 55%);
+    -webkit-mask-image: radial-gradient(ellipse 50% 60% at 30% 40%, black 0%, transparent 55%);
+    opacity: 0.25;
+}
+
+/* Layer 5 - Bottom right */
+.halftone-5 {
+    bottom: 5%;
+    right: 10%;
+    width: 35%;
+    height: 40%;
+    transform: rotate(-25deg);
+    animation: halftoneFloat5 11s ease-in-out infinite;
+    mask-image: radial-gradient(ellipse 55% 55% at 60% 60%, black 0%, transparent 50%);
+    -webkit-mask-image: radial-gradient(ellipse 55% 55% at 60% 60%, black 0%, transparent 50%);
+    opacity: 0.35;
+}
+
+/* Waving animations for each layer */
+@keyframes halftoneFloat1 {
+    0%, 100% { transform: rotate(-15deg) translate(0, 0); }
+    50% { transform: rotate(-12deg) translate(-20px, 15px); }
+}
+
+@keyframes halftoneFloat2 {
+    0%, 100% { transform: rotate(20deg) translate(0, 0); }
+    50% { transform: rotate(23deg) translate(25px, -20px); }
+}
+
+@keyframes halftoneFloat3 {
+    0%, 100% { transform: rotate(-5deg) translate(0, 0); }
+    50% { transform: rotate(-8deg) translate(-15px, 10px); }
+}
+
+@keyframes halftoneFloat4 {
+    0%, 100% { transform: rotate(10deg) translate(0, 0); }
+    50% { transform: rotate(7deg) translate(10px, 15px); }
+}
+
+@keyframes halftoneFloat5 {
+    0%, 100% { transform: rotate(-25deg) translate(0, 0); }
+    50% { transform: rotate(-22deg) translate(-10px, -15px); }
+}
+
+/* Dark mode halftone */
+html.dark .halftone-layer {
+    background-image: 
+        radial-gradient(circle, #60a5fa 1.5px, transparent 1.5px),
+        radial-gradient(circle, #60a5fa 1px, transparent 1px),
+        radial-gradient(circle, #60a5fa 2px, transparent 2px);
+    opacity: 0.2;
+}
+
+html.dark .halftone-3,
+html.dark .halftone-4 {
+    opacity: 0.15;
+}
+
+html.dark .halftone-5 {
+    opacity: 0.18;
+}
+
+/* Hide scrollbar for horizontal scroll sections */
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+}
+
+/* Touch scroll styles */
+.touch-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.touch-scroll * {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-drag: none;
+}
+
+.touch-scroll:active {
+    cursor: grabbing;
+}
+
+/* Slide right to left animation */
+@keyframes slideRight {
+    0% {
+        opacity: 0;
+        transform: translateX(80px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animate-slide-right {
+    opacity: 0;
+    transform: translateX(80px);
+}
+
+.animate-slide-right.animate-visible {
+    animation: slideRight 0.8s ease-out forwards;
+}
+
+/* Animation on scroll - initial hidden state */
+.animate-on-scroll {
+    opacity: 0;
+}
+
+.animate-on-scroll.animate-visible {
+    animation-fill-mode: forwards;
+}
+
+/* Slide up on scroll */
+.animate-slide-up-scroll {
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.animate-slide-up-scroll.animate-visible {
+    animation: slideUp 0.8s ease-out forwards;
+}
+
+/* Slide down on scroll */
+.animate-slide-down-scroll {
+    opacity: 0;
+    transform: translateY(-50px);
+}
+
+.animate-slide-down-scroll.animate-visible {
+    animation: slideDown 0.8s ease-out forwards;
+}
